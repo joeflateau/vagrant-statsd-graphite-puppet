@@ -17,7 +17,7 @@ class graphite($version = '0.9.10') {
   package { "python-whisper":
     ensure   => installed,
     provider => dpkg,
-    source   => "/vagrant/python-whisper_${version}-1_all.deb",
+    source   => "puppet:///modules/graphite/python-whisper_${version}-1_all.deb",
   } ->
 
   exec { "download-graphite-webapp":
@@ -44,13 +44,6 @@ class graphite($version = '0.9.10') {
     mode => "0775",
   } ->
 
-  exec { "init-db":
-    command => "python manage.py syncdb --noinput",
-    cwd => "/opt/graphite/webapp/graphite",
-    creates => "/opt/graphite/storage/graphite.db",
-    subscribe => File["/opt/graphite/storage"],
-  } ->
-
   file { "/opt/graphite/webapp/graphite/initial_data.json" :
     ensure => present,
     content => '
@@ -74,6 +67,13 @@ class graphite($version = '0.9.10') {
     }
   }
 ]'
+  } ->
+
+  exec { "init-db":
+    command => "python manage.py syncdb --noinput",
+    cwd => "/opt/graphite/webapp/graphite",
+    creates => "/opt/graphite/storage/graphite.db",
+    subscribe => File["/opt/graphite/storage"],
   } ->
 
   file { "/opt/graphite/storage/graphite.db" :

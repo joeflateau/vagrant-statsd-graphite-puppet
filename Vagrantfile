@@ -1,9 +1,10 @@
-Vagrant::Config.run do |config|
+Vagrant.configure("1") do |config|
 
   config.vm.box = "precise64"
   config.vm.box_url = "http://files.vagrantup.com/precise64.box"
 
   config.vm.forward_port 80, 8080
+  config.vm.forward_port 5000, 5000
   config.vm.forward_port 2003, 2003
   config.vm.forward_port 2003, 2003, { :protocol => 'udp' }
   config.vm.forward_port 2004, 2004
