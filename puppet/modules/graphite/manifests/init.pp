@@ -16,8 +16,6 @@ class graphite($version = '0.9.10') {
 
   file { "tmp-python-whisper":
     name     => "/tmp/python-whisper_${version}-1_all.deb",
-    owner    => root,
-    group    => root,
     source   => "puppet:///modules/graphite/python-whisper_${version}-1_all.deb",
   } ->
 
