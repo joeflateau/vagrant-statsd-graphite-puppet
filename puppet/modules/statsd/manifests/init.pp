@@ -6,7 +6,7 @@ class statsd {
 
    package { "statsd" :
      provider => "dpkg",
-     source => "puppet:///modules/statsd/statsd_0.6.0-1_all.deb",
+     source => "/tmp/statsd_0.6.0-1_all.deb",
      ensure => installed,
     require  => File[tmp-statsd],
    }
