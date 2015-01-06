@@ -1,38 +1,19 @@
-Exec {
-    path => ["/usr/bin", "/usr/sbin", '/bin']
+class { 'nodejs' : } ->
+
+class { 'graphite' :
+    gr_apache_24               => true,
+    gr_web_cors_allow_from_all => true,
+
+    gr_storage_schemas         => [
+        {
+          name       => 'stats',
+          pattern    => '.*',
+          retentions => '1m:2d,15m:7d,2h:1y'
+        }
+      ],
+} ->
+
+class { 'statsd' :
+  backends     => ['./backends/graphite'],
+  graphiteHost => 'localhost'
 }
-
-Exec["apt-get-update"] -> Package <| |>
-
-exec { "apt-get-update" :
-    command => "/usr/bin/apt-get update",
-    require => File["/etc/apt/preferences"]
-}
-
-file { "/etc/apt/preferences" :
-    content => "
-Package: *
-Pin: release a=stable
-Pin-Priority: 800
-
-Package: *
-Pin: release a=testing
-Pin-Priority: 750
-
-Package: *
-Pin: release a=unstable
-Pin-Priority: 650
-
-Package: *
-Pin: release a=oldstable
-Pin-Priority: 600
-
-Package: *
-Pin: release a=experimental
-Pin-Priority: 550
-",
-    ensure => present,
-}
-
-include carbon
-include statsd
