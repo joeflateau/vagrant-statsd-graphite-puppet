@@ -1,4 +1,6 @@
-class { 'nodejs' : } ->
+class { 'nodejs':
+  version => 'stable',
+} ->
 
 class { 'graphite' :
     gr_apache_24               => true,
