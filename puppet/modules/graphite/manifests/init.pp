@@ -100,7 +100,7 @@ class graphite($version = '0.9.10') {
     ensure => present,
  } ->
 
-  file { "/etc/apache2/sites-available/default" :
+  file { "/etc/apache2/sites-available/default.conf" :
     content =>' 
 <VirtualHost *:80>
         ServerName graphite
@@ -133,6 +133,16 @@ class graphite($version = '0.9.10') {
 
 </VirtualHost>',
     notify => Service["apache2"],
+  } ->
+
+  exec { "a2enmod", 
+    command => "a2enmod python",
+    notify -> Service["apache2"],
+  } ->
+
+  exec { "a2ensite", 
+    command => "a2ensite default",
+    notify -> Service["apache2"],
   } ->
 
   service { "apache2" :
