@@ -1,7 +1,3 @@
-class { 'nodejs':
-  version => 'stable',
-} ->
-
 class { 'graphite' :
     gr_apache_24               => true,
     gr_web_cors_allow_from_all => true,
@@ -17,5 +13,7 @@ class { 'graphite' :
 
 class { 'statsd' :
   backends     => ['./backends/graphite'],
-  graphiteHost => 'localhost'
+  graphiteHost => 'localhost',
+  flushInterval    => 1000,
+  percentThreshold => [75, 90, 99],
 }

@@ -5,7 +5,9 @@ sudo apt-get update -y
 sudo apt-get upgrade -y
 sudo apt-get install puppet git -y
 
-puppet module install willdurand-nodejs
+curl -sL https://deb.nodesource.com/setup | sudo bash -
+sudo apt-get install nodejs -y
+
 puppet module install dwerder-graphite
 puppet module install jdowning-statsd
 
