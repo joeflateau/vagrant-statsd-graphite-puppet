@@ -6,7 +6,7 @@ sudo apt-get upgrade -y
 
 sudo apt-get install puppet git -y
 
-git clone https://github.com/sidearmsports/vagrant-statsd-graphite-puppet.git statsd
+git clone -b trusty https://github.com/sidearmsports/vagrant-statsd-graphite-puppet.git statsd
 
 pushd statsd/puppet
 
