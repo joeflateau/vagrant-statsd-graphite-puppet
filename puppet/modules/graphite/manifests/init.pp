@@ -106,7 +106,7 @@ class graphite($version = '0.9.10') {
         ServerName graphite
         DocumentRoot "/opt/graphite/webapp"
         ErrorLog /opt/graphite/storage/log/webapp/error.log
-        CustomLog /opt/graphite/storage/log/webapp/access.log common
+        #CustomLog /opt/graphite/storage/log/webapp/access.log common
 
         <Location "/">
                 SetHandler python-program
