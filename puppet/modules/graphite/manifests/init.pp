@@ -137,12 +137,12 @@ class graphite($version = '0.9.10') {
 
   exec { "a2enmod" :
     command => "a2enmod python",
-    notify -> Service["apache2"],
+    notify => Service["apache2"],
   } ->
 
   exec { "a2ensite" : 
     command => "a2ensite default",
-    notify -> Service["apache2"],
+    notify => Service["apache2"],
   } ->
 
   service { "apache2" :
