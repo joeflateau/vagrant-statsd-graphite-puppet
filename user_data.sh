@@ -5,11 +5,12 @@ sudo apt-get update -y
 sudo apt-get upgrade -y
 sudo apt-get install puppet git -y
 
-curl -sL https://deb.nodesource.com/setup | sudo bash -
-sudo apt-get install nodejs -y
-
+puppet module install willdurand-nodejs
 puppet module install dwerder-graphite
 puppet module install jdowning-statsd
+
+curl -sL https://deb.nodesource.com/setup | sudo bash -
+sudo apt-get install nodejs -y
 
 git clone -b trusty https://github.com/sidearmsports/vagrant-statsd-graphite-puppet.git statsd
 

@@ -1,5 +1,9 @@
+class { 'nodejs':
+  version => 'stable',
+} ->
+
 class { 'graphite' :
-    gr_apache_24               => true,
+    gr_apache_24 => true,
 } ->
 
 class { 'statsd' :
